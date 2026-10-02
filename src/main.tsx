@@ -77,18 +77,12 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
   return (
     <main className="centered-screen welcome-screen">
       <section className="welcome-content" aria-labelledby="welcome-title">
-        <h1 id="welcome-title">Bienvenido/a <span aria-hidden="true">👋</span></h1>
+        <h1 id="welcome-title">¡Gracias por participar! <span aria-hidden="true">💛</span></h1>
         <p className="welcome-lead">
-          En esta prueba te pediremos realizar <strong>2 tareas dentro de un prototipo</strong>.
+          Te pediremos realizar <strong>2 tareas dentro de un prototipo</strong>. Navega como lo harías normalmente; aquí{' '}
+          <strong>no hay respuestas correctas o incorrectas</strong>.
         </p>
-        <p>
-          Queremos conocer qué tan fácil resulta completar algunas acciones dentro de la plataforma.{' '}
-          <strong>No estamos evaluando tus conocimientos ni tus respuestas</strong>, sino la experiencia del producto.
-        </p>
-        <p>
-          Navega como lo harías normalmente. Si en algún momento algo no es claro, continúa de la manera que te parezca más natural.
-        </p>
-        <p className="duration"><strong>Duración aproximada: 5–10 minutos.</strong></p>
+        <p className="duration"><strong>Duración: 5–10 min.</strong></p>
         <PrimaryButton onClick={onStart}>Comenzar prueba</PrimaryButton>
       </section>
     </main>
@@ -100,8 +94,12 @@ function TaskIntro({ task, taskIndex, onStart }: { task: Task; taskIndex: number
     <main className="centered-screen task-intro-screen">
       <div className="intro-progress"><Progress taskIndex={taskIndex} /></div>
       <section className="task-intro" aria-labelledby="task-title">
-        <h1 id="task-title">{task.instruction}</h1>
-        <p>Cuando estés listo/a, inicia la tarea y realiza la acción dentro del prototipo.</p>
+        <h1 id="task-title">Tarea {taskIndex + 1}</h1>
+        <p className="task-copy">{task.instruction}</p>
+        <div className="task-info">
+          <span aria-hidden="true">i</span>
+          <p>Cuando estés listo/a, inicia la tarea. Dentro del prototipo podrás consultar nuevamente las instrucciones cuando lo necesites.</p>
+        </div>
         <PrimaryButton onClick={onStart}>Iniciar tarea</PrimaryButton>
       </section>
     </main>
@@ -163,7 +161,6 @@ function FeedbackModal({
   onReturn: () => void
 }) {
   const [rating, setRating] = useState<number | null>(null)
-  const [comments, setComments] = useState('')
 
   return (
     <div className="modal-layer" role="presentation">
@@ -171,8 +168,7 @@ function FeedbackModal({
         <button className="return-button" type="button" onClick={onReturn}>
           ← Volver al prototipo
         </button>
-        <h2 id="feedback-title">Cuéntanos cómo te fue</h2>
-        <p className="feedback-intro">Tu respuesta nos ayuda a mejorar la experiencia.</p>
+        <h2 id="feedback-title">Evalúa esta tarea</h2>
 
         <fieldset className="rating-field">
           <legend>¿Qué tan fácil o difícil te resultó completar esta tarea?</legend>
@@ -195,16 +191,6 @@ function FeedbackModal({
             <span>Muy fácil</span>
           </div>
         </fieldset>
-
-        <label className="comments-field">
-          <span>¿Hubo algo que te confundiera o que esperabas que funcionara diferente?</span>
-          <textarea
-            value={comments}
-            onChange={(event) => setComments(event.target.value)}
-            placeholder="Escribe aquí tu respuesta"
-            rows={4}
-          />
-        </label>
 
         <div className="feedback-actions">
           <PrimaryButton onClick={onContinue}>
