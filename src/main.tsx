@@ -39,6 +39,14 @@ const ClipboardIcon = () => (
   </svg>
 )
 
+const HelpIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9.8 9a2.35 2.35 0 0 1 4.53.9c0 1.8-2.33 2.03-2.33 3.6" />
+    <path d="M12 17h.01" />
+  </svg>
+)
+
 const FlagIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M5 21V4m0 0c5-3 8 3 14 0v10c-6 3-9-3-14 0" />
@@ -109,35 +117,38 @@ function PrototypeSurface({ task, onFinish }: { task: Task; onFinish: () => void
 
   return (
     <main className="prototype-screen">
-      {hasUrl ? (
-        <iframe
-          key={task.prototypeUrl}
-          src={task.prototypeUrl}
-          title="Prototipo interactivo"
-          allow="clipboard-read; clipboard-write; fullscreen"
-        />
-      ) : (
-        <div className="prototype-empty">
-          <ClipboardIcon />
-          <strong>El prototipo aparecerá aquí</strong>
-          <p>Agrega la URL de Vercel en la configuración de esta tarea.</p>
-        </div>
-      )}
+      <section className="prototype-stage" aria-label="Prototipo de la tarea">
+        {hasUrl ? (
+          <iframe
+            key={task.prototypeUrl}
+            src={task.prototypeUrl}
+            title="Prototipo interactivo"
+            allow="clipboard-read; clipboard-write; fullscreen"
+          />
+        ) : (
+          <div className="prototype-empty">
+            <ClipboardIcon />
+            <strong>El prototipo aparecerá aquí</strong>
+            <p>Agrega la URL de Vercel en la configuración de esta tarea.</p>
+          </div>
+        )}
+      </section>
 
-      <div className="task-reminder">
-        <button type="button" aria-label={`Recordatorio de la tarea: ${task.instruction}`}>
-          <ClipboardIcon />
+      <footer className="test-toolbar" aria-label="Controles de la prueba">
+        <div className="task-reminder">
+          <button type="button" aria-label={`Ayuda sobre la tarea: ${task.instruction}`}>
+            <HelpIcon />
+          </button>
+          <div className="task-tooltip" role="tooltip">
+            <span>Tu tarea</span>
+            <p>{task.instruction}</p>
+          </div>
+        </div>
+        <button className="finish-button" type="button" onClick={onFinish}>
+          <FlagIcon />
+          Finalizar tarea
         </button>
-        <div className="task-tooltip" role="tooltip">
-          <span>Tu tarea</span>
-          <p>{task.instruction}</p>
-        </div>
-      </div>
-
-      <button className="finish-button" type="button" onClick={onFinish}>
-        <FlagIcon />
-        Finalizar tarea
-      </button>
+      </footer>
     </main>
   )
 }
