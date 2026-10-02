@@ -12,7 +12,7 @@ const TASKS: Task[] = [
   {
     instruction:
       'Cambia a $5,000.00 el límite diario para Depósito del comisionista con ID 663542.',
-    prototypeUrl: '[PEGA AQUÍ TU URL DE VERCEL]',
+    prototypeUrl: 'https://limitesoperativos.vercel.app/',
   },
   {
     instruction: '[PEGA AQUÍ LA SEGUNDA TAREA]',
