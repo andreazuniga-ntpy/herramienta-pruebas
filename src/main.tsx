@@ -17,7 +17,7 @@ type View = 'welcome' | 'task-intro' | 'prototype' | 'feedback' | 'complete'
 const TASKS: Task[] = [
   {
     instruction:
-      'Cambia a $5,000.00 el límite diario para Depósito del comisionista con ID 663542.',
+      'Cambia a $5,000 el límite diario para Depósito del comisionista con ID 663542.',
     prototypeUrl: 'https://limitesoperativos.vercel.app/',
   },
   {
@@ -53,6 +53,19 @@ const FlagIcon = () => (
   </svg>
 )
 
+function TaskInstruction({ task }: { task: Task }) {
+  if (task === TASKS[0]) {
+    return (
+      <>
+        Cambia a <strong>$5,000 el límite diario</strong> para <strong>Depósito</strong> del comisionista con{' '}
+        <strong>ID 663542</strong>.
+      </>
+    )
+  }
+
+  return <>{task.instruction}</>
+}
+
 function PrimaryButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <button className="primary-button" type="button" onClick={onClick}>
@@ -77,7 +90,7 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
   return (
     <main className="centered-screen welcome-screen">
       <section className="welcome-content" aria-labelledby="welcome-title">
-        <h1 id="welcome-title">¡Gracias por participar! <span aria-hidden="true">💛</span></h1>
+        <h1 id="welcome-title">¡Hola! <span aria-hidden="true">💙</span></h1>
         <p className="welcome-lead">
           Te pediremos realizar <strong>2 tareas dentro de un prototipo</strong>. Navega como lo harías normalmente; aquí{' '}
           <strong>no hay respuestas correctas o incorrectas</strong>.
@@ -95,7 +108,7 @@ function TaskIntro({ task, taskIndex, onStart }: { task: Task; taskIndex: number
       <div className="intro-progress"><Progress taskIndex={taskIndex} /></div>
       <section className="task-intro" aria-labelledby="task-title">
         <h1 id="task-title">Tarea {taskIndex + 1}</h1>
-        <p className="task-copy">{task.instruction}</p>
+        <p className="task-copy"><TaskInstruction task={task} /></p>
         <div className="task-info">
           <span aria-hidden="true">i</span>
           <p>Cuando estés listo/a, inicia la tarea. Dentro del prototipo podrás consultar nuevamente las instrucciones cuando lo necesites.</p>
@@ -139,7 +152,7 @@ function PrototypeSurface({ task, onFinish }: { task: Task; onFinish: () => void
           </button>
           <div className="task-tooltip" role="tooltip">
             <span>Tu tarea</span>
-            <p>{task.instruction}</p>
+            <p><TaskInstruction task={task} /></p>
           </div>
         </div>
         <button className="finish-button" type="button" onClick={onFinish}>
