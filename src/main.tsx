@@ -23,7 +23,7 @@ const TASKS: Task[] = [
   {
     instruction:
       'Cambia masivamente el límite mensual de depósito de todos los comisionistas al monto de $50,000.00.',
-    prototypeUrl: 'https://limites-tarea2-6crsaogat-ux-70f6.vercel.app/',
+    prototypeUrl: 'https://limites-tarea2.vercel.app/',
   },
 ]
 
