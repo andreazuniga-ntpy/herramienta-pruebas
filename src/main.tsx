@@ -64,6 +64,15 @@ function TaskInstruction({ task }: { task: Task }) {
     )
   }
 
+  if (task === TASKS[1]) {
+    return (
+      <>
+        Cambia <strong>masivamente</strong> el <strong>límite mensual</strong> de depósito de{' '}
+        <strong>todos los comisionistas</strong> al monto de <strong>$50,000.00.</strong>
+      </>
+    )
+  }
+
   return <>{task.instruction}</>
 }
 
