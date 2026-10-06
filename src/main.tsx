@@ -124,12 +124,24 @@ function isValidPrototypeUrl(url: string) {
   return /^https?:\/\//i.test(url)
 }
 
-function PrototypeSurface({ task, onFinish }: { task: Task; onFinish: () => void }) {
+function PrototypeSurface({
+  task,
+  taskIndex,
+  onFinish,
+}: {
+  task: Task
+  taskIndex: number
+  onFinish: () => void
+}) {
   const hasUrl = isValidPrototypeUrl(task.prototypeUrl)
+  const isTaskTwo = taskIndex === 1
 
   return (
-    <main className="prototype-screen">
-      <section className="prototype-stage" aria-label="Prototipo de la tarea">
+    <main className={`prototype-screen${isTaskTwo ? ' task-two-screen' : ''}`}>
+      <section
+        className={`prototype-stage${isTaskTwo ? ' task-two-prototype-stage' : ''}`}
+        aria-label="Prototipo de la tarea"
+      >
         {hasUrl ? (
           <iframe
             key={task.prototypeUrl}
@@ -250,7 +262,7 @@ function App() {
 
   return (
     <>
-      <PrototypeSurface task={task} onFinish={() => setView('feedback')} />
+      <PrototypeSurface task={task} taskIndex={taskIndex} onFinish={() => setView('feedback')} />
       {view === 'feedback' ? (
         <FeedbackModal
           key={taskIndex}

@@ -123,6 +123,33 @@ button { cursor: pointer; }
 }
 .prototype-stage { min-height: 0; flex: 1 1 auto; overflow: hidden; background: #fff; }
 .prototype-stage > iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+.task-two-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+.task-two-prototype-stage {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - 82px);
+  min-height: 0;
+  flex: 0 0 calc(100dvh - 82px);
+  overflow: hidden;
+}
+.task-two-prototype-stage > iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+}
+.task-two-screen .test-toolbar { height: 82px; min-height: 82px; }
 .prototype-empty { display: flex; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; padding: 32px; color: var(--navy); text-align: center; }
 .prototype-empty svg { width: 46px; height: 46px; margin-bottom: 18px; fill: none; stroke: #8491a7; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .prototype-empty strong { font-size: 20px; }
@@ -234,6 +261,8 @@ button { cursor: pointer; }
   .progress-track { width: 100px; }
   .task-intro p { font-size: 15px; }
   .test-toolbar { min-height: 74px; padding: 10px 16px; }
+  .task-two-prototype-stage { height: calc(100dvh - 74px); flex-basis: calc(100dvh - 74px); }
+  .task-two-screen .test-toolbar { height: 74px; min-height: 74px; }
   .task-reminder button { width: 52px; height: 52px; }
   .finish-button { min-height: 50px; padding: 0 18px; }
   .modal-layer { align-items: end; padding: 12px; }
