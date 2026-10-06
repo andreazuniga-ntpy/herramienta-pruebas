@@ -21,8 +21,9 @@ const TASKS: Task[] = [
     prototypeUrl: 'https://limitesoperativos.vercel.app/',
   },
   {
-    instruction: '[PEGA AQUÍ LA SEGUNDA TAREA]',
-    prototypeUrl: '[PEGA AQUÍ LA SEGUNDA URL DE VERCEL]',
+    instruction:
+      'Cambia masivamente el límite mensual de depósito de todos los comisionistas al monto de $50,000.00.',
+    prototypeUrl: 'https://limites-tarea2-6crsaogat-ux-70f6.vercel.app/',
   },
 ]
 
