@@ -68,8 +68,7 @@ button { cursor: pointer; }
 .welcome-content .welcome-lead { max-width: 720px; color: var(--navy); font-size: clamp(18px, 1.7vw, 21px); }
 .welcome-content .duration { margin: 26px 0 28px; }
 
-.primary-button,
-.finish-button {
+.primary-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -85,14 +84,12 @@ button { cursor: pointer; }
   font-weight: 730;
   transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
-.primary-button:hover,
-.finish-button:hover { transform: translateY(-1px); background: var(--primary-hover); box-shadow: 0 10px 28px rgba(17, 110, 240, 0.32); }
+.primary-button:hover { transform: translateY(-1px); background: var(--primary-hover); box-shadow: 0 10px 28px rgba(17, 110, 240, 0.32); }
 .primary-button:focus-visible,
 .finish-button:focus-visible,
 .task-reminder button:focus-visible,
 .return-button:focus-visible { outline: 3px solid rgba(17, 110, 240, 0.3); outline-offset: 3px; }
-.primary-button svg,
-.finish-button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+.primary-button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
 
 .task-intro-screen { align-content: center; }
 .intro-progress { position: absolute; top: 38px; right: 46px; z-index: 1; }
@@ -134,9 +131,9 @@ button { cursor: pointer; }
 .task-two-prototype-stage {
   position: relative;
   width: 100%;
-  height: calc(100dvh - 82px);
+  height: calc(100dvh - 60px);
   min-height: 0;
-  flex: 0 0 calc(100dvh - 82px);
+  flex: 0 0 calc(100dvh - 60px);
   overflow: hidden;
 }
 .task-two-prototype-stage > iframe {
@@ -149,7 +146,7 @@ button { cursor: pointer; }
   max-height: 100%;
   border: 0;
 }
-.task-two-screen .test-toolbar { height: 82px; min-height: 82px; }
+.task-two-screen .test-toolbar { height: 60px; min-height: 60px; }
 .prototype-empty { display: flex; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; padding: 32px; color: var(--navy); text-align: center; }
 .prototype-empty svg { width: 46px; height: 46px; margin-bottom: 18px; fill: none; stroke: #8491a7; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .prototype-empty strong { font-size: 20px; }
@@ -159,37 +156,50 @@ button { cursor: pointer; }
   position: relative;
   z-index: 20;
   display: flex;
-  min-height: 82px;
+  height: 60px;
+  min-height: 60px;
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
-  border-top: 1px solid #dbe5f4;
-  background: #fff;
-  box-shadow: 0 -8px 28px rgba(10, 22, 56, 0.08);
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  background: #171b22;
+  box-shadow: 0 3px 12px rgba(10, 15, 24, 0.22);
+}
+.toolbar-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.toolbar-label {
+  color: #aeb7c5;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .task-reminder {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 .task-reminder button {
   display: grid;
-  width: 58px;
-  height: 58px;
+  width: 38px;
+  height: 38px;
   flex: 0 0 auto;
   place-items: center;
-  border: 0;
-  border-radius: 50%;
-  color: #fff;
-  background: var(--teal);
-  box-shadow: 0 8px 24px rgba(10, 22, 56, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  color: #eef2f7;
+  background: rgba(255, 255, 255, 0.07);
+  transition: background-color 160ms ease, border-color 160ms ease;
 }
-.task-reminder button svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.task-reminder button:hover { border-color: rgba(255, 255, 255, 0.27); background: rgba(255, 255, 255, 0.13); }
+.task-reminder button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .task-tooltip {
   position: absolute;
-  bottom: calc(100% + 14px);
+  top: calc(100% + 11px);
   left: 0;
   width: min(340px, calc(100vw - 118px));
   padding: 16px 18px;
@@ -200,7 +210,7 @@ button { cursor: pointer; }
   opacity: 0;
   pointer-events: none;
   transform: translateX(-8px) scale(0.98);
-  transform-origin: left bottom;
+  transform-origin: left top;
   transition: opacity 160ms ease, transform 160ms ease;
 }
 .task-tooltip span { color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -209,7 +219,25 @@ button { cursor: pointer; }
 .task-reminder:hover .task-tooltip,
 .task-reminder:focus-within .task-tooltip { opacity: 1; transform: translateX(0) scale(1); }
 
-.finish-button { flex: 0 0 auto; }
+.finish-button {
+  display: inline-flex;
+  height: 38px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  color: #f5f7fa;
+  background: #282e38;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 650;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+.finish-button:hover { border-color: rgba(255, 255, 255, 0.28); background: #333b48; }
+.finish-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
 
 .interview-card { position: relative; z-index: 1; width: min(720px, 100%); text-align: center; }
 .interview-icon { display: grid; width: 60px; height: 60px; margin: 0 auto 24px; place-items: center; border-radius: 50%; color: #fff; background: var(--primary); font-size: 26px; font-weight: 800; letter-spacing: 2px; line-height: 1; }
@@ -231,11 +259,9 @@ button { cursor: pointer; }
   .progress { align-items: flex-end; flex-direction: column; gap: 6px; }
   .progress-track { width: 100px; }
   .task-intro p { font-size: 15px; }
-  .test-toolbar { min-height: 74px; padding: 10px 16px; }
-  .task-two-prototype-stage { height: calc(100dvh - 74px); flex-basis: calc(100dvh - 74px); }
-  .task-two-screen .test-toolbar { height: 74px; min-height: 74px; }
-  .task-reminder button { width: 52px; height: 52px; }
-  .finish-button { min-height: 50px; padding: 0 18px; }
+  .test-toolbar { height: 60px; min-height: 60px; padding: 8px 12px; }
+  .task-two-prototype-stage { height: calc(100dvh - 60px); flex-basis: calc(100dvh - 60px); }
+  .task-two-screen .test-toolbar { height: 60px; min-height: 60px; }
   .interview-icon { width: 54px; height: 54px; margin-bottom: 20px; }
 }
 
@@ -243,7 +269,8 @@ button { cursor: pointer; }
   .welcome-content p { font-size: 15px; }
   .welcome-content .welcome-lead { font-size: 17px; }
   .primary-button { width: 100%; }
-  .task-tooltip { bottom: calc(100% + 14px); left: 0; width: calc(100vw - 32px); }
+  .toolbar-label { display: none; }
+  .task-tooltip { top: calc(100% + 11px); left: 0; width: calc(100vw - 24px); }
   .finish-button { font-size: 14px; }
   .interview-card .primary-button { width: 100%; }
 }

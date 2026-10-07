@@ -147,6 +147,25 @@ function PrototypeSurface({
 
   return (
     <main className={`prototype-screen${isTaskTwo ? ' task-two-screen' : ''}`}>
+      <header className="test-toolbar" aria-label="Controles de la prueba">
+        <div className="toolbar-context">
+          <span className="toolbar-label">Prueba de usabilidad</span>
+          <div className="task-reminder">
+            <button type="button" aria-label={`Ayuda sobre la tarea: ${task.instruction}`}>
+              <HelpIcon />
+            </button>
+            <div className="task-tooltip" role="tooltip">
+              <span>Tu tarea</span>
+              <p><TaskInstruction task={task} /></p>
+            </div>
+          </div>
+        </div>
+        <button className="finish-button" type="button" onClick={onFinish}>
+          <FlagIcon />
+          Finalizar tarea
+        </button>
+      </header>
+
       <section
         className={`prototype-stage${isTaskTwo ? ' task-two-prototype-stage' : ''}`}
         aria-label="Prototipo de la tarea"
@@ -166,22 +185,6 @@ function PrototypeSurface({
           </div>
         )}
       </section>
-
-      <footer className="test-toolbar" aria-label="Controles de la prueba">
-        <div className="task-reminder">
-          <button type="button" aria-label={`Ayuda sobre la tarea: ${task.instruction}`}>
-            <HelpIcon />
-          </button>
-          <div className="task-tooltip" role="tooltip">
-            <span>Tu tarea</span>
-            <p><TaskInstruction task={task} /></p>
-          </div>
-        </div>
-        <button className="finish-button" type="button" onClick={onFinish}>
-          <FlagIcon />
-          Finalizar tarea
-        </button>
-      </footer>
     </main>
   )
 }
