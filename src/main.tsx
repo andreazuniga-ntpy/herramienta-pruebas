@@ -11,7 +11,7 @@ type Task = {
   prototypeUrl: string
 }
 
-type View = 'welcome' | 'task-intro' | 'prototype' | 'feedback' | 'complete'
+type View = 'welcome' | 'task-intro' | 'prototype' | 'interview' | 'complete'
 
 // Reemplaza únicamente estos valores cuando tengas los datos de la Tarea 2.
 const TASKS: Task[] = [
@@ -186,54 +186,19 @@ function PrototypeSurface({
   )
 }
 
-function FeedbackModal({
-  isLastTask,
-  onContinue,
-  onReturn,
-}: {
-  isLastTask: boolean
-  onContinue: () => void
-  onReturn: () => void
-}) {
-  const [rating, setRating] = useState<number | null>(null)
-
+function InterviewWaitScreen({ onContinue }: { onContinue: () => void }) {
   return (
-    <div className="modal-layer" role="presentation">
-      <section className="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
-        <button className="return-button" type="button" onClick={onReturn}>
-          ← Volver al prototipo
-        </button>
-        <h2 id="feedback-title">Evalúa esta tarea</h2>
-
-        <fieldset className="rating-field">
-          <legend>¿Qué tan fácil o difícil te resultó completar esta tarea?</legend>
-          <div className="rating-options">
-            {[1, 2, 3, 4, 5].map((value) => (
-              <label key={value} className={rating === value ? 'selected' : ''}>
-                <input
-                  type="radio"
-                  name="facilidad"
-                  value={value}
-                  checked={rating === value}
-                  onChange={() => setRating(value)}
-                />
-                <span>{value}</span>
-              </label>
-            ))}
-          </div>
-          <div className="rating-labels" aria-hidden="true">
-            <span>Muy difícil</span>
-            <span>Muy fácil</span>
-          </div>
-        </fieldset>
-
-        <div className="feedback-actions">
-          <PrimaryButton onClick={onContinue}>
-            {isLastTask ? 'Finalizar prueba' : 'Siguiente tarea'}
-          </PrimaryButton>
-        </div>
+    <main className="centered-screen interview-screen">
+      <section className="interview-card" aria-labelledby="interview-title">
+        <div className="interview-icon" aria-hidden="true">···</div>
+        <h1 id="interview-title">Espera las indicaciones del entrevistador</h1>
+        <p className="interview-description">
+          Has terminado esta tarea. El entrevistador te hará algunas preguntas antes de continuar.
+        </p>
+        <p className="interview-instruction">Cuando te lo indiquen, presiona ‘Continuar’.</p>
+        <PrimaryButton onClick={onContinue}>Continuar</PrimaryButton>
       </section>
-    </div>
+    </main>
   )
 }
 
@@ -243,7 +208,7 @@ function CompletionScreen() {
       <section className="completion-card">
         <div className="completion-mark" aria-hidden="true">✓</div>
         <h1>Prueba completada</h1>
-        <p>Gracias por compartir tu experiencia. Tus respuestas fueron registradas.</p>
+        <p>Gracias por participar y completar las dos tareas.</p>
       </section>
     </main>
   )
@@ -267,21 +232,10 @@ function App() {
   if (view === 'task-intro') {
     return <TaskIntro task={task} taskIndex={taskIndex} onStart={() => setView('prototype')} />
   }
+  if (view === 'interview') return <InterviewWaitScreen onContinue={continueTest} />
   if (view === 'complete') return <CompletionScreen />
 
-  return (
-    <>
-      <PrototypeSurface task={task} taskIndex={taskIndex} onFinish={() => setView('feedback')} />
-      {view === 'feedback' ? (
-        <FeedbackModal
-          key={taskIndex}
-          isLastTask={taskIndex === TASKS.length - 1}
-          onContinue={continueTest}
-          onReturn={() => setView('prototype')}
-        />
-      ) : null}
-    </>
-  )
+  return <PrototypeSurface task={task} taskIndex={taskIndex} onFinish={() => setView('interview')} />
 }
 
 createRoot(document.getElementById('root')!).render(
